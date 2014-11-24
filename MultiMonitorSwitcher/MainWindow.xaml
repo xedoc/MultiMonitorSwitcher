@@ -1,0 +1,43 @@
+﻿<Window x:Class="MultiMonitorSwitcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.ignore.com"
+        mc:Ignorable="d ignore"
+        Height="300"
+        Width="300"
+        Title="Multi monitor switcher"
+        DataContext="{Binding Main, Source={StaticResource Locator}}" SizeToContent="WidthAndHeight">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <ItemsControl Margin="10" Focusable="False" DataContext="{Binding}" ItemsSource="{Binding Monitors}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,7,0,0" Orientation="Vertical">
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Description}"></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">                
+                            <Button Padding="5" Margin="5" Command="{Binding Main.SwitchMonitorOn, Mode=OneWay, Source={StaticResource Locator}}" CommandParameter="{Binding DeviceId}" Content="ON" VerticalAlignment="Top"/>
+                            <Button Padding="5" Margin="5" Command="{Binding Main.SwitchMonitorOff, Mode=OneWay, Source={StaticResource Locator}}" CommandParameter="{Binding DeviceId}" Content="OFF" VerticalAlignment="Top"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</Window>
